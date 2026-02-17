@@ -1,13 +1,12 @@
 import asyncio
 import websockets
-import time
+import json
 
-WS_URL = "wss://ws.polymarket.com"
+WS_URL = "wss://ws-clob.polymarket.com"
 
-async def run_bot():
+async def main():
     while True:
         try:
-            print("🔌 Conectando a Polymarket...")
             async with websockets.connect(
                 WS_URL,
                 ping_interval=20,
@@ -17,14 +16,15 @@ async def run_bot():
 
                 while True:
                     msg = await ws.recv()
-                    print(msg)
+                    data = json.loads(msg)
+                    print(data)
 
         except Exception as e:
-            print("⚠️ Conexión caída:", e)
+            print(f"⚠️ Conexión caída: {e}")
             print("🔄 Reintentando en 5 segundos...")
-            time.sleep(5)
+            await asyncio.sleep(5)
 
-asyncio.run(run_bot())
+asyncio.run(main())
 
 
 
