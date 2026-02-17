@@ -2,7 +2,7 @@ import asyncio
 import websockets
 import time
 
-WS_URL = "wss://ws.polymarket.com/ws"
+WS_URL = "wss://ws.polymarket.com"
 
 async def run_bot():
     while True:
